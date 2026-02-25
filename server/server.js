@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 /* =========================
    Создание / получение участника
@@ -87,10 +86,6 @@ app.get("/api/results/participant/:id", async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-});
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
 
 app.listen(PORT, () =>
