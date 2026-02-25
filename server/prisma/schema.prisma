@@ -1,0 +1,28 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Participant {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  results   Result[]
+}
+
+model Result {
+  id            Int      @id @default(autoincrement())
+  participantId Int
+  task          String
+  totalTime     Int
+  avgTime       Float
+  createdAt     DateTime @default(now())
+
+  participant Participant @relation(fields: [participantId], references: [id])
+
+  @@unique([participantId, task])
+}
