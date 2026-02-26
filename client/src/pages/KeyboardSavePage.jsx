@@ -35,6 +35,12 @@ export default function KeyboardSavePage() {
         setStartTime(Date.now());
     };
 
+    useEffect(() => {
+        if (count === 5 && !finished) {
+            handleFinish();
+        }
+    }, [count]);
+
     const handleFinish = async () => {
         const totalTime = Date.now() - startTime;
         const avgTime = totalTime / 5;
@@ -67,12 +73,6 @@ export default function KeyboardSavePage() {
             {started && !finished && (
                 <>
                     <p>Completed: {count}/5</p>
-                    <button
-                        onClick={handleFinish}
-                        disabled={count !== 5}
-                    >
-                        Finish
-                    </button>
                 </>
             )}
 

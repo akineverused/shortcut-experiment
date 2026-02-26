@@ -16,21 +16,27 @@ export default function StartPage() {
             return;
         }
 
-        try {
-            const response = await fetch("https://shortcut-experiment.onrender.com/api/participants", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email })
-            });
+        if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            try {
+                const response = await fetch("https://shortcut-experiment.onrender.com/api/participants", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email })
+                });
 
-            const data = await response.json();
+                const data = await response.json();
 
-            localStorage.setItem("participantId", data.id);
+                localStorage.setItem("participantId", data.id);
 
-            navigate("/1");
-        } catch (err) {
-            setError("Server error. Try again.");
+                navigate("/1");
+            } catch (err) {
+                setError("Server error. Try again.");
+            }
+        } else {
+            alert("Извините, эксперимент доступен только на ПК с физической клавиатурой.");
         }
+
+
     };
 
     return (

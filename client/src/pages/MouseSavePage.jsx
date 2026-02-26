@@ -35,6 +35,12 @@ export default function MouseSavePage() {
         moveButton();
     };
 
+    useEffect(() => {
+        if (count === 5 && !finished) {
+            handleFinish();
+        }
+    }, [count]);
+
     const handleFinish = async () => {
         const totalTime = Date.now() - startTime;
         const avgTime = totalTime / 5;
@@ -76,12 +82,6 @@ export default function MouseSavePage() {
                             left: position.left
                         }}
                     >Save</button>
-                    <button
-                        onClick={handleFinish}
-                        disabled={count !== 5}
-                    >
-                        Finish
-                    </button>
                 </>
             )}
 
