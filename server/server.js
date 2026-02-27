@@ -10,6 +10,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.get("/ping", (req, res) => {
+    res.json({ status: "ok" });
+});
+
 /* =========================
    Создание / получение участника
 ========================= */
